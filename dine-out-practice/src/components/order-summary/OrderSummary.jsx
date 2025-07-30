@@ -44,9 +44,6 @@ export default function OrderSummary() {
             key={item.title}
             title={item.title}
             number={item.number}
-            textColor={item.textColor}
-            bgColor={item.bgColor}
-            tagColor={item.tagColor}
           />
         ))}
       </div>

@@ -1,0 +1,95 @@
+import React from 'react';
+
+// Sample static data (later can be passed via props or fetched from API)
+const orders = [
+  { id: 21, name: "Sumit Saha", items: 5, amount: 123123, status: "PENDING" },
+  { id: 22, name: "Akash Ahmed", items: 5, amount: 123123, status: "DELIVERED" },
+  { id: 23, name: "Saad Hasan", items: 5, amount: 123123, status: "PENDING" },
+  { id: 24, name: "MD Salahuddin", items: 5, amount: 123123, status: "PENDING" },
+  { id: 25, name: "Ferdous", items: 5, amount: 123123, status: "PENDING" },
+  { id: 26, name: "Rafe", items: 5, amount: 123123, status: "PENDING" },
+  { id: 27, name: "Sarwar", items: 5, amount: 123123, status: "PENDING" },
+  { id: 28, name: "Obaidul", items: 5, amount: 123123, status: "PENDING" },
+];
+
+// Reusable table row
+function OrderRow({ order }) {
+  const isDelivered = order.status === "DELIVERED";
+
+  return (
+    <tr className="border-t border-gray-700">
+      <td className="py-3">{order.id}</td>
+      <td className="py-3">{order.name}</td>
+      <td className="py-3">{order.items}</td>
+      <td className="py-3">{order.amount}</td>
+      <td className="py-3">
+        <span className={isDelivered ? "text-green-500" : "text-red-500"}>
+          {order.status}
+        </span>
+      </td>
+      <td className="py-3">
+        <button className="bg-gray-800 hover:bg-red-600 text-xs px-3 py-1 rounded-full mr-1 transition-colors duration-300">
+          Delete
+        </button>
+        {!isDelivered && (
+          <button className="bg-gray-800 hover:bg-green-600 text-xs px-3 py-1 rounded-full transition-colors duration-300">
+            DELIVER
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+}
+
+export default function OrderReport() {
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Order Reports</h2>
+        <div className="flex gap-4 items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-funnel"
+          >
+            <path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" />
+          </svg>
+          <select className="appearance-none bg-zinc-900 border-none outline-none rounded-sm px-2 py-1 text-sm">
+            <option>All</option>
+            <option>Pending</option>
+            <option>Delivered</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="bg-cardbg rounded-lg p-4">
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="text-left text-sm">
+                <th className="pb-3 font-medium">ID</th>
+                <th className="pb-3 font-medium">Customer Name</th>
+                <th className="pb-3 font-medium">Items</th>
+                <th className="pb-3 font-medium">Amount</th>
+                <th className="pb-3 font-medium">Status</th>
+                <th className="pb-3 font-medium">Action</th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              {orders.map((order) => (
+                <OrderRow key={order.id + order.name} order={order} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
