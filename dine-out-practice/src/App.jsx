@@ -14,6 +14,9 @@ export default function App() {
       status: "DELIVERED",
     },
   ]);
+  
+  const [filterStatus,setFilterStatus]=useState("All")
+
 
   const handlePlaceOrder = (data) => {
     console.log("set order from app:", data);
@@ -33,6 +36,17 @@ export default function App() {
     );
   };
 
+ const handleFilterStatus=(data)=>{
+
+  setFilterStatus(data)
+
+ }
+
+const filterOrder=orders.filter((order)=>{
+  if(filterStatus==="All") return true 
+  return order.status===filterStatus.toUpperCase()
+})
+
   return (
     <div className="text-white bg-background">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 flex-grow">
@@ -42,9 +56,10 @@ export default function App() {
           <OrderSummary />
 
           <OrderReport
-            orders={orders}
+            orders={filterOrder}
             onDelete={handleDelete}
             onAction={handleAction}
+            onFilterChange={handleFilterStatus}
           />
         </div>
       </div>
