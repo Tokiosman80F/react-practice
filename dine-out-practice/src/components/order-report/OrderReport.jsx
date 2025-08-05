@@ -2,8 +2,7 @@ import React from 'react';
 
 
 
-// Reusable table row
-function OrderRow({ order }) {
+function OrderRow({ order,handleDelete,handleAction }) {
   const isDelivered = order.status === "DELIVERED";
 
   return (
@@ -18,11 +17,11 @@ function OrderRow({ order }) {
         </span>
       </td>
       <td className="py-3">
-        <button className="bg-gray-800 hover:bg-red-600 text-xs px-3 py-1 rounded-full mr-1 transition-colors duration-300">
+        <button onClick={()=>handleDelete(order.id)} className="bg-gray-800 hover:bg-red-600 text-xs px-3 py-1 rounded-full mr-1 transition-colors duration-300">
           Delete
         </button>
         {!isDelivered && (
-          <button className="bg-gray-800 hover:bg-green-600 text-xs px-3 py-1 rounded-full transition-colors duration-300">
+          <button onClick={()=>handleAction(order.id)}  className="bg-gray-800 hover:bg-green-600 text-xs px-3 py-1 rounded-full transition-colors duration-300">
             DELIVER
           </button>
         )}
@@ -31,7 +30,7 @@ function OrderRow({ order }) {
   );
 }
 
-export default function OrderReport({orders}) {
+export default function OrderReport({orders,onDelete,onAction}) {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
@@ -74,7 +73,7 @@ export default function OrderReport({orders}) {
             </thead>
             <tbody className="text-sm">
               {orders.map((order) => (
-                <OrderRow key={order.id + order.name} order={order} />
+                <OrderRow  handleDelete={onDelete}  handleAction={onAction}  key={order.id} order={order} />
               ))}
             </tbody>
           </table>
