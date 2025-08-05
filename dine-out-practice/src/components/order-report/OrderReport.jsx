@@ -1,16 +1,6 @@
 import React from 'react';
 
-// Sample static data (later can be passed via props or fetched from API)
-const orders = [
-  { id: 21, name: "Sumit Saha", items: 5, amount: 123123, status: "PENDING" },
-  { id: 22, name: "Akash Ahmed", items: 5, amount: 123123, status: "DELIVERED" },
-  { id: 23, name: "Saad Hasan", items: 5, amount: 123123, status: "PENDING" },
-  { id: 24, name: "MD Salahuddin", items: 5, amount: 123123, status: "PENDING" },
-  { id: 25, name: "Ferdous", items: 5, amount: 123123, status: "PENDING" },
-  { id: 26, name: "Rafe", items: 5, amount: 123123, status: "PENDING" },
-  { id: 27, name: "Sarwar", items: 5, amount: 123123, status: "PENDING" },
-  { id: 28, name: "Obaidul", items: 5, amount: 123123, status: "PENDING" },
-];
+
 
 // Reusable table row
 function OrderRow({ order }) {
@@ -41,7 +31,7 @@ function OrderRow({ order }) {
   );
 }
 
-export default function OrderReport() {
+export default function OrderReport({orders}) {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
