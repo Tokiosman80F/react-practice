@@ -53,7 +53,7 @@ const filterOrder=orders.filter((order)=>{
         <OrderCreatationPanel setOrder={handlePlaceOrder} />
 
         <div className="md:col-span-2 h-[calc(100vh_-_130px)]">
-          <OrderSummary />
+          <OrderSummary  orders={filterOrder}/>
 
           <OrderReport
             orders={filterOrder}

@@ -15,11 +15,6 @@ function getColor(status){
     })
 }
 
-const summaryItems = [
-  { title: "Total Order", number: "8",  },
-  { title: "Pending", number: "7",  },
-  { title: "Delivered", number: "1",  },
-];
 
 
 function SummaryCard({ title, number }) {
@@ -34,7 +29,19 @@ function SummaryCard({ title, number }) {
   );
 }
 
-export default function OrderSummary() {
+export default function OrderSummary({orders}) {
+  console.log("This order:",orders);
+  
+  const total=orders.length;
+  const pending=orders.filter((order)=>order.status==="PENDING").length
+  const delivery=orders.filter((order)=>order.status==="DELIVERED").length
+
+  const summaryItems = [
+  { title: "Total Order", number: total  },
+  { title: "Pending", number: pending  },
+  { title: "Delivered", number:delivery   },
+];
+
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Order Summary</h2>
