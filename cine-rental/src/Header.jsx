@@ -3,9 +3,20 @@ import Logo from "./assets/logo.svg"
 import Ring from "./assets/ring.svg"
 import Moon from "./assets/icons/moon.svg"
 import ShoppingCart from './assets/shopping-cart.svg'
+import { useState } from "react"
+import CartModal from "./cine/CartModal"
 export default function Header(){
 
+	const [showCartModal,setShowCartModal]=useState(false)
+
+	function handleCartModal(){
+		setShowCartModal(true)
+	}
+
+
     return (
+		<>
+		{showCartModal && <CartModal onClose={()=>setShowCartModal(false)}/>}
         <header>
 		<nav className="container   flex items-center justify-between space-x-10 py-6">
 			<a href="index.html">
@@ -24,13 +35,14 @@ export default function Header(){
 					</a>
 				</li>
 				<li>
-					<a className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block" href="#">
+					<a onClick={handleCartModal} className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block" href="#">
 						<img src={ShoppingCart} width="24" height="24" alt="shopping cart" />
 					</a>
 				</li>
 			</ul>
 		</nav>
 	</header>
+	</>
     ) 
 
 }
