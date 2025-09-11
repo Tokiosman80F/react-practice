@@ -3,11 +3,15 @@ import Logo from "./assets/logo.svg"
 import Ring from "./assets/ring.svg"
 import Moon from "./assets/icons/moon.svg"
 import ShoppingCart from './assets/shopping-cart.svg'
-import { useState } from "react"
+import { useContext, useState } from "react"
 import CartModal from "./cine/CartModal"
-export default function Header(){
+import { MovieContext } from "./context"
 
+export default function Header(){
 	const [showCartModal,setShowCartModal]=useState(false)
+
+	const {cartValue}=useContext(MovieContext)
+
 
 	function handleCartModal(){
 		setShowCartModal(true)
@@ -37,6 +41,9 @@ export default function Header(){
 				<li>
 					<a onClick={handleCartModal} className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block" href="#">
 						<img src={ShoppingCart} width="24" height="24" alt="shopping cart" />
+						{
+							cartValue.length >0 && <span className="absolute -top-5 left-6  h-6 w-6 text-center rounded-full bg-green-300 " >{cartValue.length}</span>
+						}
 					</a>
 				</li>
 			</ul>
