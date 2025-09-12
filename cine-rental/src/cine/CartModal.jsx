@@ -10,13 +10,13 @@ export default function CartModal({ onClose }) {
 
   console.log("Cart Value:",cartValue);
 
-  function handleRemoveMovieItem(movie){
+  function handleRemoveMovieItem(movieId){
     // console.log("the movie:",movie);
     
-    const removed=cartValue.filter((item)=> { return item.id!==movie.id})
+    const removed=cartValue.filter((item)=> { return item.id!==movieId})
     console.log("the removed",removed);
     
-    // setCartValue(removed)
+    setCartValue(removed)
   }
   
 
@@ -28,11 +28,11 @@ export default function CartModal({ onClose }) {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cartValue.map((item)=>{
-              return <div  className="grid grid-cols-[1fr_auto] gap-4">
-              <div key={item.id} className="flex items-center gap-4">
+            { cartValue.length <= 0 ? (<p>No Item found</p>) : cartValue.map((item)=>{
+              return <div  key={item.id} className="grid grid-cols-[1fr_auto] gap-4">
+              <div  className="flex items-center gap-4">
                 <img
-                  className="rounded overflow-hidden"
+                  className="rounded overflow-hidden w-20 h-20"
                   src={getImageUrl(item.cover)}
                   alt={item.title}
                 />
@@ -45,7 +45,7 @@ export default function CartModal({ onClose }) {
                 </div>
               </div>
               <div className="flex justify-between gap-4 items-center">
-                <button onClick={()=>handleRemoveMovieItem(item)} className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white">
+                <button onClick={()=>handleRemoveMovieItem(item.id)} className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white">
                   <img className="w-5 h-5" src={RemoveIcon} alt="" />
                   <span className="max-md:hidden">Remove</span>
                 </button>
