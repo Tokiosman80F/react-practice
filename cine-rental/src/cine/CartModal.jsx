@@ -5,20 +5,18 @@ import { MovieContext } from "../context";
 import { getImageUrl } from "../utils/cine-utility";
 
 export default function CartModal({ onClose }) {
+  const { cartValue, setCartValue } = useContext(MovieContext);
 
-  const {cartValue,setCartValue}=useContext(MovieContext)
+  console.log("Cart Value:", cartValue);
 
-  console.log("Cart Value:",cartValue);
+  function handleRemoveMovieItem(movieId) {
+    const removed = cartValue.filter((item) => {
+      return item.id !== movieId;
+    });
+    console.log("the removed", removed);
 
-  function handleRemoveMovieItem(movieId){
-    // console.log("the movie:",movie);
-    
-    const removed=cartValue.filter((item)=> { return item.id!==movieId})
-    console.log("the removed",removed);
-    
-    setCartValue(removed)
+    setCartValue([...removed]);
   }
-  
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
@@ -28,31 +26,44 @@ export default function CartModal({ onClose }) {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            { cartValue.length <= 0 ? (<p>No Item found</p>) : cartValue.map((item)=>{
-              return <div  key={item.id} className="grid grid-cols-[1fr_auto] gap-4">
-              <div  className="flex items-center gap-4">
-                <img
-                  className="rounded overflow-hidden w-20 h-20"
-                  src={getImageUrl(item.cover)}
-                  alt={item.title}
-                />
-                <div>
-                  <h3 className="text-base md:text-xl font-bold">{item.title}</h3>
-                  <p className="max-md:text-xs text-[#575A6E]">
-                   {item.genre}
-                  </p>
-                  <span className="max-md:text-xs">{item.price}</span>
-                </div>
-              </div>
-              <div className="flex justify-between gap-4 items-center">
-                <button onClick={()=>handleRemoveMovieItem(item.id)} className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white">
-                  <img className="w-5 h-5" src={RemoveIcon} alt="" />
-                  <span className="max-md:hidden">Remove</span>
-                </button>
-              </div>
-            </div>
-
-            })}
+            {cartValue.length === 0 ? (
+              <p>No Item found</p>
+            ) : (
+              cartValue.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="grid grid-cols-[1fr_auto] gap-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <img
+                        className="rounded overflow-hidden w-20 h-20"
+                        src={getImageUrl(item.cover)}
+                        alt={item.title}
+                      />
+                      <div>
+                        <h3 className="text-base md:text-xl font-bold">
+                          {item.title}
+                        </h3>
+                        <p className="max-md:text-xs text-[#575A6E]">
+                          {item.genre}
+                        </p>
+                        <span className="max-md:text-xs">{item.price}</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between gap-4 items-center">
+                      <button
+                        onClick={() => handleRemoveMovieItem(item.id)}
+                        className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
+                      >
+                        <img className="w-5 h-5" src={RemoveIcon} alt="" />
+                        <span className="max-md:hidden">Remove</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
           {/*  */}
           <div className="flex items-center justify-end gap-2">

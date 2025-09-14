@@ -3,4 +3,9 @@
 @theme{
   --color-primary:#00D991;
   --container-padding: 2rem;
+  
 }
+.dark{
+  @apply bg-[#171927] text-white
+}
+@custom-variant dark (&:where(.dark, .dark *));
